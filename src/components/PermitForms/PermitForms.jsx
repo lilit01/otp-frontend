@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import FormSteps from './FormSteps/FormSteps'
 import './PermitForms.scss'
+import RoutsTab from './RoutsTab/RoutsTab'
 import TruckForm from './TruckForm/TruckForm'
 
 const PermitForms = () => {
@@ -18,7 +19,9 @@ const PermitForms = () => {
             <FormSteps step={step} />
             {
               step === 2 ? <TruckForm setStep={setStep} />
-              : ''
+              : step === 3 ? <RoutsTab setStep={setStep} />
+              :
+              ''
             }
           </div>
         </div>

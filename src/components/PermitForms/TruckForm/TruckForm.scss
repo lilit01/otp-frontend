@@ -68,6 +68,7 @@
     .select {
       width: 100%;
     }
+
     .money-box {
       padding: 16px;
       margin-left: 16px;
@@ -80,38 +81,6 @@
       letter-spacing: 0.42px;
       text-transform: capitalize;
       color: #000000;
-    }
-  }
-  .actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 16px;
-    margin-top: 32px;
-    .primary {
-      padding: 16px 10px;
-      background: #39979c;
-      border: none;
-      font-style: normal;
-      font-weight: 700;
-      font-size: 16px;
-      line-height: 24px;
-      letter-spacing: 0.42px;
-      text-transform: capitalize;
-      color: #ffffff;
-      cursor: pointer;
-    }
-    .secondary {
-      padding: 16px 10px;
-      background: transparent;
-      border: 1px solid #39979c;
-      font-style: normal;
-      font-weight: 700;
-      font-size: 16px;
-      line-height: 24px;
-      letter-spacing: 0.42px;
-      text-transform: capitalize;
-      color: #39979c;
-      cursor: pointer;
     }
   }
 }
