@@ -1,0 +1,46 @@
+@import "../../../assets/scss/mixins";
+@import "../../../assets/scss/_variables.scss";
+
+.steps {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 32px;
+  .step {
+    padding: 8px 16px;
+    background: #39979c;
+    border: 1px solid #39979c;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    > svg {
+      path {
+        fill: white;
+      }
+    }
+    .step-name {
+      color: #fff;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.42px;
+      text-transform: capitalize;
+      margin-left: 12px;
+    }
+    &.current {
+      background-color: #fff;
+      .step-name {
+        color: #39979c;
+      }
+      > svg {
+        path {
+          fill: #39979c;
+        }
+      }
+    }
+    &.disabled {
+      opacity: 0.5;
+    }
+  }
+}
