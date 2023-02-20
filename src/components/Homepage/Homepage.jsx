@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {  useNavigate } from 'react-router-dom'
+import LiveChat from '../LiveChat/LiveChat'
 import './Homepage.scss'
 
 const Homepage = () => {
-  const navigate = useNavigate()
+  const [openChat, setOpenChat] = useState(false)
+  const navigate = useNavigate();
+
   return (
     <div className='homepage-container'>
       <div className='container'>
@@ -39,6 +42,7 @@ const Homepage = () => {
           </div>
         </div>
       </div>
+      <LiveChat openChat={openChat} setOpenChat={setOpenChat}/>
     </div>
   )
 }

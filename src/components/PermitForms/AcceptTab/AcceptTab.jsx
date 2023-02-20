@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { DeclinedIcon } from '../../icons/DeclinedIcon'
 import { SuccessIcon } from '../../icons/SuccessIcon'
 import './AcceptTab.scss'
 
 const AcceptTab = ({setStep}) => {
+  const navigate = useNavigate()
   const [success] = useState(true)
   return (
     <div className='accept-tab'>
@@ -15,7 +17,7 @@ const AcceptTab = ({setStep}) => {
             <SuccessIcon />
             <h3 className='check-email'>Please check your email.</h3>
           </div>
-          <button className='primary' onClick={()=> setStep(5)}>FINISH</button>
+          <button className='primary' onClick={()=> navigate('/') }>FINISH</button>
         </div>
         :
         <div className='declined'>
