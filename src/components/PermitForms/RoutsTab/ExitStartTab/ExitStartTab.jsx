@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import './EnteringTab.scss';
 import Select from 'react-select';
 import { PlusIcon } from '../../../icons/PlusIcon';
 import { RemoveIcon } from '../../../icons/RemoveIcon';
@@ -7,8 +6,8 @@ import { DistanceIcon } from '../../../icons/DistanceIcon';
 import { MinusIcon } from '../../../icons/MinusIcon';
 import { CalculatorIcon } from '../../../icons/CalculatorIcon';
 
-const EnteringTab = () => {
-
+const ExitStartTab = () => {
+ 
   const [showFWY, setShowFWY] =useState(false)
   const [showDistance, setShowDistance] =useState(false)
   const [calcualePrice, setCalcualePrice] = useState(false)
@@ -21,7 +20,7 @@ const EnteringTab = () => {
 
   return (
     <div className='entering-tab'>
-      <h3 className='title'>Entering Oregon</h3>
+      <h3 className='title'>Starting from Oregon</h3>
       <div className='trip-radios'>
         <label>
           <input type={'radio'} />
@@ -34,17 +33,11 @@ const EnteringTab = () => {
           </span>
         </label>
       </div>
-      <div className='form-select form-input'>
-          <label>Entrance point:</label>
-          <Select
-            className="basic-single select"
-            classNamePrefix="select"
-            isSearchable={false}
-            placeholder={"Select One"}
-            options={options}
-          />
+      <div className='form-input'>
+          <label>Start point:</label>
+          <input placeholder='CIty or zip code'/>
           <span className='error-text'></span>
-      </div>
+        </div>
       <div className='steps-area'>
         <h3 className='title'>Stops</h3>
         <div className='form-input'>
@@ -130,4 +123,4 @@ const EnteringTab = () => {
   )
 }
 
-export default EnteringTab
+export default ExitStartTab

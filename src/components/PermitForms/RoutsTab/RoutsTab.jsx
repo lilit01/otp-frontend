@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { EnterenceIcon } from '../../icons/EnterenceIcon'
 import { WayIcon } from '../../icons/WayIcon'
 import EnteringTab from './EnteringTab/EnteringTab';
+import ExitStartTab from './ExitStartTab/ExitStartTab';
 import './RoutsTab.scss';
 
 const RoutsTab = ({setStep}) => {
   const [selectedTab , setSelectedTab] = useState("tabs");
-  console.log(selectedTab)
   const goBack = () => {
     if(selectedTab === "tabs") {
       setStep(2)
@@ -31,7 +31,7 @@ const RoutsTab = ({setStep}) => {
         : selectedTab === "entering" ? 
           <EnteringTab />
         :
-        <h1>exit/start</h1>
+       <ExitStartTab />
       }
       <div className='actions'>
         <button className='secondary' onClick={goBack}>BACK</button>

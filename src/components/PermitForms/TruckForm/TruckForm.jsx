@@ -16,7 +16,6 @@ const TruckForm = ({setStep}) => {
 
  const handleChange = (selectedOption) => {
    setIsApportioned(selectedOption.value)
-   console.log(isApportioned)
   };
 
   return (
