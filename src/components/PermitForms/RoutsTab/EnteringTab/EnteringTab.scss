@@ -1,0 +1,119 @@
+@import "../../../../assets/scss/mixins";
+@import "../../../../assets/scss/_variables.scss";
+
+.entering-tab {
+  > .trip-radios {
+    margin: 32px 0;
+    display: flex;
+    > label {
+      display: flex;
+      align-items: center;
+      > input {
+        margin-right: 8px;
+        position: relative;
+        width: 24px;
+        height: 24px;
+        &::before {
+          content: "";
+          width: 18px;
+          height: 18px;
+          background: #fff;
+          border-radius: 50%;
+          position: absolute;
+          left: 0;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          margin: auto;
+          z-index: 3;
+        }
+
+        &::after {
+          content: "";
+          width: 24px;
+          height: 24px;
+          border: 2px solid #000;
+          background: #fff;
+          border-radius: 50%;
+          position: absolute;
+          transform: translate(-50%, -50%);
+          left: 50%;
+          top: 50%;
+          z-index: 2;
+        }
+        &:checked::before {
+          content: "";
+          background-color: #39979c;
+          border-radius: 50%;
+          left: 0;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          margin: auto;
+        }
+        &:checked::after {
+          border-color: #39979c;
+        }
+      }
+      > span {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 30px;
+        color: #000000;
+      }
+      &:nth-child(2) {
+        margin-left: 24px;
+      }
+    }
+  }
+  .steps-area {
+    margin: 32px 0;
+    .title {
+      margin-bottom: 16px;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 24px;
+      letter-spacing: 0.42px;
+      color: #000000;
+    }
+  }
+  .fwy-and-distance {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .distance-btn {
+      background: #39979c;
+      color: #fff;
+      font-style: normal;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      padding: 16px 32px;
+      border: none;
+      line-height: 24px;
+      letter-spacing: 0.42px;
+      text-transform: uppercase;
+      width: 233px;
+      > svg {
+        margin-left: 8px;
+      }
+    }
+    .fwy-point {
+      display: flex;
+      align-items: center;
+      .name {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.42px;
+        color: #000000;
+        margin-left: 32px;
+        min-width: 190px;
+      }
+    }
+  }
+}

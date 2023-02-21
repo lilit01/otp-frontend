@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setDriverData } from "../../store/driver/action";
+import LiveChat from '../livechat/LiveChat'
 import "./Homepage.scss";
 
 const Homepage = () => {
+  const [openChat, setOpenChat] = useState(false)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
@@ -110,6 +112,7 @@ const Homepage = () => {
           </div>
         </form>
       </div>
+      <LiveChat openChat={openChat} setOpenChat={setOpenChat}/>
     </div>
   );
 };

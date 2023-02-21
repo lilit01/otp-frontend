@@ -3,7 +3,7 @@ import io from "socket.io-client";
 
 // const socket = io.connect("http://localhost:5000");
 
-function LiveChat() {
+function SocketLiveChat() {
   const [message, setMessage] = useState("");
   const [messageReceived, setMessageReceived] = useState([]);
   
@@ -33,4 +33,4 @@ function LiveChat() {
   );
 }
 
-export default LiveChat;
+export default SocketLiveChat;
