@@ -1,0 +1,89 @@
+@import "../../assets/scss/mixins";
+@import "../../assets/scss/_variables.scss";
+
+.terms-conditions {
+  padding: 80px 20px 120px;
+  .container {
+    .title {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 32px;
+      line-height: 48px;
+      text-align: center;
+      letter-spacing: 0.78px;
+      text-transform: uppercase;
+      color: #231f20;
+      margin-bottom: 40px;
+    }
+    .desc {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 36px;
+      letter-spacing: 0.78px;
+      color: #000000;
+      margin-bottom: 24px;
+    }
+    .accordion {
+      border: none;
+      .accordion__item {
+        .accordion__heading {
+          .accordion__button {
+            padding: 32px 20px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 36px;
+            letter-spacing: 0.78px;
+            text-transform: uppercase;
+            color: #f6f9f9;
+            background: #39979c;
+            &::before {
+              display: none;
+            }
+            svg {
+              width: 36px;
+              height: 36px;
+              path {
+                fill: white;
+              }
+            }
+            .minus-icon {
+              display: none;
+            }
+          }
+          .accordion__button[aria-disabled="true"] {
+            .plus-icon {
+              display: none;
+            }
+            .minus-icon {
+              display: block;
+            }
+          }
+        }
+        .accordion__panel {
+          background: #f6f9f9;
+          padding: 40px 32px;
+          border: 1px solid #d7e2e2;
+          p {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 36px;
+            letter-spacing: 0.78px;
+            color: #000000;
+            &:not(:last-child) {
+              margin-bottom: 16px;
+            }
+          }
+        }
+        &:not(:last-child) {
+          margin-bottom: 32px;
+        }
+      }
+    }
+  }
+}

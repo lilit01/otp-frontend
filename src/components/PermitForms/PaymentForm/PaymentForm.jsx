@@ -68,7 +68,7 @@ const PaymentForm = ({setStep}) => {
       </div>
       <div className='actions'>
         <button className='secondary'>BACK</button>
-        <button className='primary' onClick={()=> setStep(5)}>NEXT</button>
+        <button className='primary' onClick={()=> setStep(5)}>PAY</button>
       </div>
     </div>
   )

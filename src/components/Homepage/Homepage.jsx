@@ -3,8 +3,9 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setDriverData } from "../../store/driver/action";
-import LiveChat from '../livechat/LiveChat'
+import LiveChat from '../LiveChat/LiveChat'
 import "./Homepage.scss";
+import WelcomeSection from "./WelcomeSection/WelcomeSection";
 
 const Homepage = () => {
   const [openChat, setOpenChat] = useState(false)
@@ -23,6 +24,7 @@ const Homepage = () => {
 
   return (
     <div className="homepage-container">
+      <div className="landing-section">
       <div className="container">
         <form
           onSubmit={handleSubmit(handleDriverData)}
@@ -35,7 +37,7 @@ const Homepage = () => {
           <div className="form-content">
             <div className="inputs">
               <div className="input-group">
-                <label htmlFor="usdot">Your USDOT#:</label>
+                <label htmlFor="usdot">USDOT/MC/CCD number#:</label>
                 <input
                   type="number"
                   {...register("usdot", {
@@ -63,7 +65,7 @@ const Homepage = () => {
                 ) : null}
               </div>
               <div className="input-group">
-                <label htmlFor="lb-name">local business name:</label>
+                <label htmlFor="lb-name">Company name:</label>
                 <input
                   {...register("business_name", {
                     required: "is required",
@@ -77,7 +79,7 @@ const Homepage = () => {
                 ) : null}
               </div>
               <div className="input-group">
-                <label htmlFor="email">Email adress:</label>
+                <label htmlFor="email">Valid email address:</label>
                 <input
                   type="email"
                   {...register("email", {
@@ -91,7 +93,7 @@ const Homepage = () => {
                 ) : null}
               </div>
               <div className="input-group">
-                <label htmlFor="phone-num">phone number:</label>
+                <label htmlFor="phone-num">Phone number:</label>
                 <input
                   type="tel"
                   {...register("phone", {
@@ -112,6 +114,8 @@ const Homepage = () => {
           </div>
         </form>
       </div>
+      </div>
+      <WelcomeSection />
       <LiveChat openChat={openChat} setOpenChat={setOpenChat}/>
     </div>
   );

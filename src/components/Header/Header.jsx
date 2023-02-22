@@ -17,7 +17,7 @@ const Header = () => {
             <div className='phone-number'>
               <div className='number'>
                 <PhoneIcon />
-                <p>+49 977 5376 1234</p>
+                <p>503 00000000</p>
               </div>
               <p className='num'>24/7 Hotline</p>
             </div>
@@ -28,8 +28,9 @@ const Header = () => {
           <ul className='nav-list'>
             <li className='nav-item'>HOME</li>
             <li className='nav-item'>OVERSIZE AND OVERWEIGHT PERMITS</li>
-            {/* <li className='nav-item'>HOW TO APPLY</li> */}
+            <li className='nav-item'>good to know</li>
             <li className='nav-item'>CONTACT US</li>
+            <li className='nav-item'>Terms and conditions</li>
           </ul>
         </div>
       </div>

@@ -61,6 +61,23 @@ button {
   }
 }
 
+.input-group,
+.form-input {
+  position: relative;
+  .error-text {
+    position: absolute;
+    right: 0;
+    bottom: -21px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.42px;
+    text-transform: capitalize;
+    color: #f11212;
+  }
+}
+
 .popup-content {
   margin: auto;
   background: rgb(255, 255, 255);
@@ -78,4 +95,9 @@ button {
 
 [data-popup="tooltip"].popup-overlay {
   background: transparent;
+}
+.entering-tab {
+  .form-select {
+    z-index: 3;
+  }
 }

@@ -4,11 +4,11 @@
 .chat-section {
   position: fixed;
   right: 84px;
-  bottom: 96px;
+  bottom: 200px;
   .live-chat-btn {
     position: fixed;
     right: 84px;
-    bottom: 96px;
+    bottom: 200px;
     background: #39979c;
     height: 80px;
     width: 80px;
@@ -108,7 +108,7 @@
     &.show {
       animation: show 1s ease;
       width: 500px;
-      height: 850px;
+      height: 745px;
     }
     &.hide {
       overflow: hidden;
@@ -134,7 +134,7 @@
 @keyframes hide {
   0% {
     width: 500px;
-    height: 850px;
+    height: 745px;
   }
   100% {
     width: 0px;

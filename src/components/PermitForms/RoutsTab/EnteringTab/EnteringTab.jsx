@@ -25,12 +25,12 @@ const EnteringTab = () => {
       <div className='trip-radios'>
         <label>
           <input type={'radio'} />
-         <span> Round Trip</span>
+         <span> Round trip</span>
         </label>
         <label>
           <input type={'radio'} />
           <span>
-          One Way Trip
+          One way trip
           </span>
         </label>
       </div>
@@ -48,7 +48,7 @@ const EnteringTab = () => {
       <div className='steps-area'>
         <h3 className='title'>Stops</h3>
         <div className='form-input'>
-          <label>1 Location in Oregon:</label>
+          <label>1 location in Oregon:</label>
           <div className='trip-radios'>
           <label>
             <input type={'radio'} />
@@ -56,7 +56,7 @@ const EnteringTab = () => {
           </label>
           <label>
             <input type={'radio'} />
-            <span>Pick Up</span>
+            <span>Pick up</span>
           </label>
           </div>
           <div className='form-group'>
@@ -76,7 +76,7 @@ const EnteringTab = () => {
               calcualePrice ? 
               <div className='miles-price'>
                 <div className='miles'>
-                  <span className='title'>Total Miles: </span>
+                  <span className='title'>Total miles: </span>
                   <span className='total'>722 mi</span>
                 </div>
                 <p className='price'>$149.51</p>

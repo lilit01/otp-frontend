@@ -2,6 +2,16 @@
 @import "../../../assets/scss/_variables.scss";
 
 .routes-container {
+  .routes-title {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.42px;
+    color: #000000;
+    margin-bottom: 32px;
+  }
   .content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -22,7 +32,7 @@
         font-size: 24px;
         line-height: 24px;
         letter-spacing: 0.42px;
-        text-transform: capitalize;
+        // text-transform: capitalize;
         color: #39979c;
       }
       &:hover {
