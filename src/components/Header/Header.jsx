@@ -26,7 +26,7 @@ const Header = () => {
           <ul className='nav-list'>
             <li className='nav-item'>HOME</li>
             <li className='nav-item'>OVERSIZE AND OVERWEIGHT PERMITS</li>
-            <li className='nav-item'>HOW TO APPLY</li>
+            {/* <li className='nav-item'>HOW TO APPLY</li> */}
             <li className='nav-item'>CONTACT US</li>
           </ul>
         </div>

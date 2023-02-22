@@ -44,16 +44,17 @@
           }
         }
         .live-btn {
-          padding: 16px 110px;
+          padding: 14px 40px;
           font-style: normal;
-          font-weight: 500;
+          font-weight: 600;
           font-size: 14px;
           line-height: 21px;
           letter-spacing: 0.7px;
           text-transform: uppercase;
-          color: #231f20;
+          color: #39979c;
           background-color: transparent;
           cursor: pointer;
+          border: 2px solid #39979c;
         }
       }
     }
