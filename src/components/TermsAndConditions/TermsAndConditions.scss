@@ -44,6 +44,12 @@
             &::before {
               display: none;
             }
+            > div {
+              &:not(:first-child) {
+                width: 36px;
+                height: 36px;
+              }
+            }
             svg {
               width: 36px;
               height: 36px;
