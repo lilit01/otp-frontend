@@ -1,9 +1,11 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { PhoneIcon } from '../icons/PhoneIcon'
 import { WebsiteLogo } from '../icons/WebsiteLogo'
 import './Header.scss'
 
 const Header = () => {
+  const navigate = useNavigate()
   return (
     <div className='header'>
       <div className='container'>
@@ -19,7 +21,7 @@ const Header = () => {
               </div>
               <p className='num'>24/7 Hotline</p>
             </div>
-            <button className='live-btn'>LIVE CHAT</button>
+            <button className='live-btn' onClick={() => navigate("/livechat")}>LIVE CHAT</button>
           </div>
         </div>
         <div className='navbar'>
