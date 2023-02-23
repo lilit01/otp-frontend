@@ -3,13 +3,14 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setDriverData } from "../../store/driver/action";
-import LiveChat from '../livechat/LiveChat'
+import LiveChat from "../livechat/LiveChat";
 import "./Homepage.scss";
 
 const Homepage = () => {
-  const [openChat, setOpenChat] = useState(false)
+  const [openChat, setOpenChat] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -19,6 +20,14 @@ const Homepage = () => {
   const handleDriverData = (data) => {
     dispatch(setDriverData(data));
     navigate("/permit");
+  };
+
+  const disablePastDate = () => {
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const yyyy = today.getFullYear();
+    return yyyy + "-" + mm + "-" + dd;
   };
 
   return (
@@ -50,7 +59,9 @@ const Homepage = () => {
               <div className="input-group">
                 <label htmlFor="start-date">Permit starting date:</label>
                 <input
+                  min={disablePastDate()}
                   type="date"
+                  placeholder=""
                   {...register("start_date", {
                     required: "is required",
                   })}
@@ -112,7 +123,7 @@ const Homepage = () => {
           </div>
         </form>
       </div>
-      <LiveChat openChat={openChat} setOpenChat={setOpenChat}/>
+      <LiveChat openChat={openChat} setOpenChat={setOpenChat} />
     </div>
   );
 };

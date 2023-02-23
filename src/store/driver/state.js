@@ -29,6 +29,7 @@ export const driverState = {
     miles: "",
     total_amount: "",
     trip_type: "",
+    trip_method:"",
     type: "",
   },
 };

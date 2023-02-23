@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/permit" element={<PermitForms />} />
-        <Route path="/livechat" element={<LiveChat />} />
+        {/* <Route path="/livechat" element={<LiveChat />} /> */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       {/* <Footer /> */}

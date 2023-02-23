@@ -5,13 +5,14 @@ import { getTaxRates } from "./taxRates/TaxRates";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setTruckData } from "../../../store/driver/action";
-import { useNavigate } from "react-router-dom";
+import { getUsStates } from "./usStates/UsStates";
+import { getCanadaProvinces } from "./canada/CanadaProvinces";
 
 const TruckForm = ({ setStep }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [isApportioned, setIsApportioned] = useState(true);
   const taxRates = getTaxRates();
+  const [selectedTab, setSelectedTab] = useState("tabs");
 
   const apportionedWithOregon = [
     { value: true, label: "Yes" },
@@ -23,39 +24,40 @@ const TruckForm = ({ setStep }) => {
     { value: false, label: "Owned" },
   ];
 
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
+  const stateOptions = [
+    {
+      label: "United States",
+      options: getUsStates(),
+    },
+    {
+      label: "Canada",
+      options: getCanadaProvinces(),
+    },
   ];
+  const groupedOptions = stateOptions.map((group) => ({
+    label: group.label,
+    options: group.options.map((option) => ({
+      label: option.label,
+      value: option.value,
+    })),
+  }));
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
     control,
   } = useForm();
 
-  const handleTruckData = (data) => {
-    console.log("data", data);
-    const distance = 1000;
-    let total;
-    if (data.registered_weight.id > 27) {
-      data.registered_weight.rates.find((element) => {
-        if (element.axles === +data.axles) {
-          total = distance * element.decimal;
-        }
-      });
+  const goBack = () => {
+    if (selectedTab === "tabs") {
+      setStep(1);
     } else {
-      total = distance * data.registered_weight.decimal;
+      setSelectedTab("tabs");
     }
-    if (data.is_opportioned.value) {
-      console.log("total", total);
-    } else if (!data.is_opportioned.value) {
-      total += 50;
-      console.log("total", total);
-    }
+  };
+
+  const handleTruckData = (data) => {
     dispatch(setTruckData(data));
     setStep(3);
   };
@@ -118,7 +120,7 @@ const TruckForm = ({ setStep }) => {
             type="number"
             {...register("vin", {
               required: "is required",
-              minLength: 11,
+              minLength: 17,
             })}
           />
           {errors.vin ? (
@@ -149,9 +151,9 @@ const TruckForm = ({ setStep }) => {
                 classNamePrefix="select"
                 isSearchable={false}
                 placeholder={"Select One"}
-                options={options}
                 onChange={(value) => onChange(value)}
-                value={value}
+                options={groupedOptions}
+                formatGroupLabel={(data) => data.label}
               />
             )}
           />
@@ -217,7 +219,6 @@ const TruckForm = ({ setStep }) => {
             </span>
           ) : null}
         </div>
-        {/* {!isApportioned ? ( */}
         <div className="form-input">
           <label>How many axles do you have?</label>
           <input
@@ -229,7 +230,6 @@ const TruckForm = ({ setStep }) => {
             <span className="error-text">{errors.axles.message}</span>
           ) : null}
         </div>
-        {/* ) : null} */}
         <div className="form-select form-input new-position">
           <label>Truck is purchased by the company or leased?</label>
           <Controller
@@ -266,7 +266,7 @@ const TruckForm = ({ setStep }) => {
         </div>
       </div>
       <div className="actions">
-        <button className="secondary" onClick={() => navigate(-1)}>
+        <button className="secondary" onClick={goBack}>
           BACK
         </button>
         <button className="primary" type="submit">

@@ -7,12 +7,21 @@ import { RemoveIcon } from '../../icons/RemoveIcon'
 import './PaymentForm.scss'
 
 const PaymentForm = ({setStep}) => {
+  const [selectedTab , setSelectedTab] = useState("tabs");
 
   const [cardDetails,setCardDetails] = useState({
     cardNumber: '',
     date: '',
     cvc: ''
   })
+
+  const goBack = () => {
+    if(selectedTab === "tabs") {
+      setStep(3)
+    } else {
+      setSelectedTab("tabs")
+    }
+  }
 
   return (
     <div className='payment-from'>
@@ -67,7 +76,7 @@ const PaymentForm = ({setStep}) => {
         </div>
       </div>
       <div className='actions'>
-        <button className='secondary'>BACK</button>
+        <button className='secondary' onClick={goBack}>BACK</button>
         <button className='primary' onClick={()=> setStep(5)}>NEXT</button>
       </div>
     </div>

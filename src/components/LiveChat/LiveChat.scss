@@ -27,6 +27,28 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    .esi-messagneri-hamar-a {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      .outgoing {
+        background-color: #d2f2ff;
+        align-self: flex-end;
+        border-radius: 8px;
+        padding: 8px;
+        margin-bottom: 8px;
+        max-width: 80%;
+      }
+      .incoming {
+        background-color: #f2f2f2;
+        align-self: flex-start;
+        border-radius: 8px;
+        padding: 8px;
+        margin-bottom: 8px;
+        max-width: 80%;
+      }
+    }
+
     .chat-header {
       padding: 24px;
       border-bottom: 1px solid #d7e2e2;

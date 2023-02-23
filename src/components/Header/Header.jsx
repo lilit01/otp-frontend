@@ -21,7 +21,7 @@ const Header = () => {
               </div>
               <p className='num'>24/7 Hotline</p>
             </div>
-            <button className='live-btn' onClick={() => navigate("/livechat")}>LIVE CHAT</button>
+            <button className='live-btn'>LIVE CHAT</button>
           </div>
         </div>
         <div className='navbar'>
