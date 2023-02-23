@@ -27,7 +27,6 @@
           font-size: 16px;
           line-height: 24px;
           letter-spacing: 0.42px;
-          text-transform: capitalize;
           color: #000000;
         }
       }
@@ -42,9 +41,11 @@
             font-size: 16px;
             line-height: 24px;
             letter-spacing: 0.42px;
-            text-transform: capitalize;
             color: #000000;
             margin-bottom: 8px;
+            > span {
+              font-size: 14px;
+            }
           }
           > input {
             background: #f6f9f9;
@@ -55,7 +56,6 @@
             font-size: 16px;
             line-height: 24px;
             letter-spacing: 0.42px;
-            text-transform: capitalize;
             color: #000000;
             width: 100%;
           }
@@ -70,7 +70,6 @@
               font-size: 16px;
               line-height: 24px;
               letter-spacing: 0.42px;
-              text-transform: capitalize;
               color: #000000;
               width: 100%;
             }
@@ -156,7 +155,6 @@
               font-size: 16px;
               line-height: 24px;
               letter-spacing: 0.42px;
-              text-transform: capitalize;
               color: #000000;
               width: 100%;
               appearance: none;
@@ -189,7 +187,6 @@
             font-size: 16px;
             line-height: 24px;
             letter-spacing: 0.42px;
-            text-transform: capitalize;
             color: #ffffff;
             cursor: pointer;
           }
@@ -202,7 +199,6 @@
             font-size: 16px;
             line-height: 24px;
             letter-spacing: 0.42px;
-            text-transform: capitalize;
             color: #39979c;
             cursor: pointer;
           }
@@ -211,6 +207,14 @@
           .fwy-point {
             .form-input {
               display: none;
+            }
+            .add-btn {
+              margin-left: 0;
+              margin-right: 16px;
+            }
+            .name {
+              margin-left: 0;
+              margin-right: 16px;
             }
           }
           .colculate {
@@ -274,6 +278,8 @@
             }
             .fwy-point {
               margin-bottom: 32px;
+              flex-direction: row-reverse;
+
               .form-input {
                 display: flex;
                 width: 100%;
@@ -309,6 +315,7 @@
             .fwy-point {
               margin-bottom: 32px;
               justify-content: flex-end;
+              flex-direction: row-reverse;
             }
           }
           &.show-f {

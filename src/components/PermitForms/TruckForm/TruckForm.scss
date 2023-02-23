@@ -2,8 +2,25 @@
 @import "../../../assets/scss/_variables.scss";
 
 .truck-form {
-  .driver-name {
-    width: calc(50% - 8px);
+  .name-of-driver {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: flex-end;
+    grid-gap: 16px;
+    .second-driver {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: flex-end;
+      grid-gap: 16px;
+      .add-btn {
+        width: 56px;
+        height: 56px;
+        margin-left: 0;
+      }
+    }
+    // .driver-name {
+    //   width: calc(50% - 8px);
+    // }
   }
   .form-name {
     margin: 16px 0;
@@ -12,7 +29,6 @@
     font-size: 16px;
     line-height: 24px;
     letter-spacing: 0.42px;
-    text-transform: capitalize;
     color: #000000;
   }
   .truck-info-form {
@@ -43,7 +59,6 @@
           font-size: 16px;
           line-height: 24px;
           letter-spacing: 0.42px;
-          text-transform: capitalize;
           color: #000000;
           width: 100%;
           appearance: none;
@@ -79,7 +94,6 @@
       font-size: 14px;
       line-height: 24px;
       letter-spacing: 0.42px;
-      text-transform: capitalize;
       color: #000000;
     }
   }

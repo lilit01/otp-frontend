@@ -26,6 +26,7 @@ const RoutsTab = ({setStep}) => {
 
   return (
     <div className='routes-container'>
+      {selectedTab === "tabs" && <h3 className='routes-title'>Please select from below</h3> }
       {
         selectedTab === "tabs" ? 
           <div className='content'>
@@ -35,7 +36,7 @@ const RoutsTab = ({setStep}) => {
             </div>
             <div className='exit-from' aria-hidden onClick={() => selectRouteType("start/exit")}>
               <WayIcon />
-              <h3 className='title'>EXIT/START FROM OREGON</h3>
+              <h3 className='title'>EXITING OREGON</h3>
             </div>
           </div>
         : selectedTab === "entering" ? 

@@ -5,15 +5,19 @@ import { getTaxRates } from "./taxRates/TaxRates";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setTruckData } from "../../../store/driver/action";
+import { useNavigate } from "react-router-dom";
+import { MinusIcon } from "../../icons/MinusIcon";
+import { PlusIcon } from "../../icons/PlusIcon";
 import { getUsStates } from "./usStates/UsStates";
 import { getCanadaProvinces } from "./canada/CanadaProvinces";
 
 const TruckForm = ({ setStep }) => {
   const dispatch = useDispatch();
   const [isApportioned, setIsApportioned] = useState(true);
+  const [selectedTaxRate, setSelectedTaxRate] = useState(null);
   const taxRates = getTaxRates();
   const [selectedTab, setSelectedTab] = useState("tabs");
-
+  const [secondDriver, setSecondDriver] = useState(false)
   const apportionedWithOregon = [
     { value: true, label: "Yes" },
     { value: false, label: "No" },
@@ -64,17 +68,45 @@ const TruckForm = ({ setStep }) => {
 
   return (
     <form onSubmit={handleSubmit(handleTruckData)} className="truck-form">
-      <div className="form-input driver-name">
-        <label>Name of driver:</label>
-        <input
-          {...register("name", {
-            required: "is required",
-          })}
-        />
-        {errors.name ? (
-          <span className="error-text">{errors.name.message}</span>
-        ) : null}
+      <div className="name-of-driver">
+        <div className="form-input driver-name">
+          <label>Name of driver:</label>
+          <input
+            {...register("name", {
+              required: "is required",
+            })}
+          />
+          {errors.name ? (
+            <span className="error-text">{errors.name.message}</span>
+          ) : null}
+        </div>
+        <div className="second-driver">
+        {
+          secondDriver ? 
+          <div className="form-input driver-name">
+            <label>Name of second driver:</label>
+            <input
+              {...register("name", {
+                required: "is required",
+              })}
+            />
+            {errors.name ? (
+              <span className="error-text">{errors.name.message}</span>
+            ) : null}
+          </div>
+          : null
+        }
+        <div aria-hidden className='add-btn' onClick={()=> setSecondDriver(!secondDriver)}>
+          {
+            secondDriver ?
+             <MinusIcon /> 
+             :
+             <PlusIcon />
+          }
+        </div>
+        </div>
       </div>
+      
       <p className="form-name">Truck Info</p>
       <div className="truck-info-form">
         <div className="small-inputs">
@@ -103,7 +135,7 @@ const TruckForm = ({ setStep }) => {
           </div>
         </div>
         <div className="form-input">
-          <label>Unit#:</label>
+          <label>Unit number#:</label>
           <input
             type="number"
             {...register("unit", {
@@ -115,7 +147,7 @@ const TruckForm = ({ setStep }) => {
           ) : null}
         </div>
         <div className="form-input">
-          <label>Full VIN#:</label>
+          <label>VIN number (17 digits):</label>
           <input
             type="number"
             {...register("vin", {
@@ -128,7 +160,7 @@ const TruckForm = ({ setStep }) => {
           ) : null}
         </div>
         <div className="form-input">
-          <label>License plate Number:</label>
+          <label>License plate number:</label>
           <input
             {...register("plate_number", {
               required: "required",
@@ -164,7 +196,7 @@ const TruckForm = ({ setStep }) => {
           ) : null}
         </div>
         <div className="form-select form-input">
-          <label>Is your truck apportioned with Oregon?</label>
+          <label>License plate type <span> (Is your truck apportioned with Oregon?)</span></label>
           <div className="form-group">
             <Controller
               name="is_opportioned"
@@ -208,7 +240,10 @@ const TruckForm = ({ setStep }) => {
                 isSearchable={false}
                 placeholder={"Select One"}
                 options={taxRates}
-                onChange={(value) => onChange(value)}
+                onChange={(value) => {
+                  onChange(value);
+                  setSelectedTaxRate(value);
+                }}
                 value={value}
               />
             )}
@@ -219,6 +254,7 @@ const TruckForm = ({ setStep }) => {
             </span>
           ) : null}
         </div>
+        {selectedTaxRate?.rates ? (
         <div className="form-input">
           <label>How many axles do you have?</label>
           <input
@@ -228,9 +264,11 @@ const TruckForm = ({ setStep }) => {
           />
           {errors.axles ? (
             <span className="error-text">{errors.axles.message}</span>
-          ) : null}
+            ) : null}
         </div>
-        <div className="form-select form-input new-position">
+            ) : null}
+        
+        <div className={`form-select form-input ${selectedTaxRate?.rates ? 'new-position' : null} `}>
           <label>Truck is purchased by the company or leased?</label>
           <Controller
             name="is_leased"
@@ -254,7 +292,7 @@ const TruckForm = ({ setStep }) => {
           ) : null}
         </div>
         <div className="form-input">
-          <label>What is your Commodity?</label>
+          <label>What is your commodity <span>(What are you hauling)</span>?</label>
           <input
             {...register("commodity", {
               required: "is required",
