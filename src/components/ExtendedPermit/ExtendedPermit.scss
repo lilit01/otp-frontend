@@ -2,18 +2,18 @@
 @import "../../assets/scss/_variables.scss";
 
 .extended-permit {
-  padding: 80px 20px 120px;
-  .container {
+  padding: 40px 20px 120px;
+  .container-m {
     .card {
       background: #f6f9f9;
       .card-header {
         background: #39979c;
-        padding: 40px;
+        padding: 24px;
         .title {
           font-style: normal;
           font-weight: 700;
-          font-size: 24px;
-          line-height: 24px;
+          font-size: 22px;
+          line-height: 32px;
           letter-spacing: 0.78px;
           text-align: center;
           text-transform: uppercase;
@@ -22,28 +22,28 @@
       }
       .card-content {
         border: 1px solid #d7e2e2;
-        padding: 40px;
+        padding: 24px;
         .subtitle {
           font-style: normal;
           font-weight: 700;
-          font-size: 24px;
-          line-height: 24px;
+          font-size: 22px;
+          line-height: 32px;
           letter-spacing: 0.78px;
           text-align: center;
           text-transform: uppercase;
           color: #39979c;
-          margin-bottom: 40px;
+          margin-bottom: 24px;
         }
         .descriptions {
           > p {
             font-style: normal;
             font-weight: 500;
-            font-size: 24px;
-            line-height: 36px;
+            font-size: 20px;
+            line-height: 30px;
             letter-spacing: 0.78px;
             color: #000000;
             &:not(:last-child) {
-              margin-bottom: 24px;
+              margin-bottom: 16px;
             }
           }
         }

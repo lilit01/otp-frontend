@@ -4,7 +4,7 @@ import './OversizeAndOverweight.scss';
 const OversizeAndOverweight = () => {
   return (
     <div className='oversize-and-overweight-permit'>
-    <div className='container'>
+    <div className='container-m'>
       <div className='card'>
         <div className='card-header'>
           <h3 className='title'>Oregon Oversize Permits</h3>

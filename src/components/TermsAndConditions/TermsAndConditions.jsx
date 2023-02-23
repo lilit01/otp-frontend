@@ -14,7 +14,7 @@ import './TermsAndConditions.scss';
 const TermsAndConditions = () => {
   return (
     <div className='terms-conditions'>
-      <div className='container'>
+      <div className='container-m'>
         <h3 className='title'>Terms and conditions</h3>
         <p className='desc'>The following Terms and Conditions shall be incorporated by reference into and made part of any order submitted through Oregon Permit Tax (hence referred to as the “Company”).</p>
         <p className='desc'>This contract is between the Company and customers working with commercial vehicles 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { PhoneIcon } from '../icons/PhoneIcon'
 import { WebsiteLogo } from '../icons/WebsiteLogo'
 import './Header.scss'
@@ -26,11 +26,23 @@ const Header = () => {
         </div>
         <div className='navbar'>
           <ul className='nav-list'>
-            <li className='nav-item'>HOME</li>
-            <li className='nav-item'>OVERSIZE AND OVERWEIGHT PERMITS</li>
+            <li className='nav-item'> <Link to={'/'}>HOME</Link> </li>
+            <li className='nav-item permit-dropdown-btn'>
+              <div>
+                OVERSIZE AND OVERWEIGHT PERMITS
+                <div className='dropdown'>
+                  <div>
+                    <Link to={'/oversize-and-overweight-permit'} >FOR OVERSIZE AND OVERWEIGHT PERMIT</Link>
+                  </div>
+                  <div>
+                    <Link to={'/extended-permit'} >FOR EXTENDED PERMIT</Link>
+                  </div>
+                </div>
+              </div>
+            </li>
             <li className='nav-item'>good to know</li>
             <li className='nav-item'>CONTACT US</li>
-            <li className='nav-item'>Terms and conditions</li>
+            <li className='nav-item'> <Link to={'/terms-and-conditions'} >Terms and conditions</Link></li>
           </ul>
         </div>
       </div>

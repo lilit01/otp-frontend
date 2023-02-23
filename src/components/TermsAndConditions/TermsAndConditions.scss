@@ -2,13 +2,13 @@
 @import "../../assets/scss/_variables.scss";
 
 .terms-conditions {
-  padding: 80px 20px 120px;
-  .container {
+  padding: 40px 20px 120px;
+  .container-m {
     .title {
       font-style: normal;
       font-weight: 700;
-      font-size: 32px;
-      line-height: 48px;
+      font-size: 24px;
+      line-height: 36px;
       text-align: center;
       letter-spacing: 0.78px;
       text-transform: uppercase;
@@ -18,8 +18,8 @@
     .desc {
       font-style: normal;
       font-weight: 700;
-      font-size: 24px;
-      line-height: 36px;
+      font-size: 20px;
+      line-height: 30px;
       letter-spacing: 0.78px;
       color: #000000;
       margin-bottom: 24px;
@@ -29,14 +29,14 @@
       .accordion__item {
         .accordion__heading {
           .accordion__button {
-            padding: 32px 20px;
+            padding: 24px 20px;
             text-align: center;
             display: flex;
             justify-content: space-between;
             font-style: normal;
             font-weight: 700;
-            font-size: 24px;
-            line-height: 36px;
+            font-size: 22px;
+            line-height: 32px;
             letter-spacing: 0.78px;
             text-transform: uppercase;
             color: #f6f9f9;
@@ -46,13 +46,13 @@
             }
             > div {
               &:not(:first-child) {
-                width: 36px;
-                height: 36px;
+                width: 32px;
+                height: 32px;
               }
             }
             svg {
-              width: 36px;
-              height: 36px;
+              width: 32px;
+              height: 32px;
               path {
                 fill: white;
               }
@@ -72,13 +72,13 @@
         }
         .accordion__panel {
           background: #f6f9f9;
-          padding: 40px 32px;
+          padding: 24px;
           border: 1px solid #d7e2e2;
           p {
             font-style: normal;
             font-weight: 500;
-            font-size: 24px;
-            line-height: 36px;
+            font-size: 20px;
+            line-height: 30px;
             letter-spacing: 0.78px;
             color: #000000;
             &:not(:last-child) {

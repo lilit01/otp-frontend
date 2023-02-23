@@ -4,7 +4,7 @@ import './ExtendedPermit.scss';
 const ExtendedPermit = () => {
   return (
     <div className='extended-permit'>
-      <div className='container'>
+      <div className='container-m'>
         <div className='card'>
           <div className='card-header'>
             <h3 className='title'>Over-Dimension Permit</h3>
