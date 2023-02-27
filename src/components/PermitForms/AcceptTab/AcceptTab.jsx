@@ -1,13 +1,27 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { DeclinedIcon } from '../../icons/DeclinedIcon'
 import { SuccessIcon } from '../../icons/SuccessIcon'
+import Loader from '../../Loader/Loader'
 import './AcceptTab.scss'
 
 const AcceptTab = ({setStep}) => {
   const navigate = useNavigate()
   const [success] = useState(true)
+  const [load, setLoad] = useState(true);
+
+  useEffect(()=> {
+    setTimeout(()=> {
+      setLoad(false)
+    },3000)
+  },[])
   return (
+    <>
+    {load ?
+    <div className='loader-section'>
+      <Loader />
+    </div>
+    :
     <div className='accept-tab'>
       {
         success ? 
@@ -32,6 +46,8 @@ const AcceptTab = ({setStep}) => {
         </div>
       }
     </div>
+  }
+    </>
   )
 }
 
