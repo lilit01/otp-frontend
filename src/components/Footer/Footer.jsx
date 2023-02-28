@@ -11,7 +11,7 @@ const Footer = () => {
         <div className='website-logo'>
           <WebsiteLogo />
           <div className='website-number'>
-            <p className='number'> <PhoneIcon /> 503 00000000</p>
+            <p className='number'> <PhoneIcon /> 503 8626399</p>
             <p className='info'>24/7 Hotline</p>
           </div>
         </div>

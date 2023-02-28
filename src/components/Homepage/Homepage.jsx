@@ -112,6 +112,7 @@ const Homepage = () => {
               SEND
             </button>
           </div>
+          <div className="form-background" />
         </form>
       </div>
       </div>

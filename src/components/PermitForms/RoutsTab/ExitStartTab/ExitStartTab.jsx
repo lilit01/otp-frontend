@@ -103,6 +103,7 @@ const ExitStartTab = () => {
           />
           <span className='error-text'></span>
       </div>
+      <div className='fwy-action'>
           <span className='name'>  {
               !showFWY ? 
               'Add'
@@ -117,6 +118,7 @@ const ExitStartTab = () => {
               <MinusIcon />
             }
             </button>
+            </div>
         </div>
       </div>
     </div>

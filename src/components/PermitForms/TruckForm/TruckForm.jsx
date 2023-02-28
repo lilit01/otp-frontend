@@ -36,7 +36,7 @@ const TruckForm = ({ setStep }) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
+    // reset,
     control,
   } = useForm();
 
@@ -45,6 +45,7 @@ const TruckForm = ({ setStep }) => {
     const distance = 1000;
     let total;
     if (data.registered_weight.id > 27) {
+      // eslint-disable-next-line array-callback-return
       data.registered_weight.rates.find((element) => {
         if (element.axles === +data.axles) {
           total = distance * element.decimal;
@@ -65,7 +66,7 @@ const TruckForm = ({ setStep }) => {
 
   return (
     <form onSubmit={handleSubmit(handleTruckData)} className="truck-form">
-      <div className="name-of-driver">
+      <div className={`name-of-driver ${secondDriver ? 'grid' : ''}`}>
         <div className="form-input driver-name">
           <label>Name of driver:</label>
           <input

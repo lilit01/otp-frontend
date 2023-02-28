@@ -18,6 +18,14 @@
           text-align: center;
           text-transform: uppercase;
           color: #f6f9f9;
+          @include sm {
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+          }
+        }
+        @include sm {
+          padding: 16px;
         }
       }
       .card-content {
@@ -46,6 +54,15 @@
             &:not(:last-child) {
               margin-bottom: 16px;
             }
+            @include sm {
+              > b {
+                font-size: 16px;
+                line-height: 24px;
+              }
+              font-size: 14px;
+              font-weight: 400;
+              line-height: 20px;
+            }
           }
           .list {
             li {
@@ -56,13 +73,27 @@
               letter-spacing: 0.78px;
               color: #000000;
               margin-bottom: 16px;
+              @include sm {
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 20px;
+              }
             }
           }
+        }
+        @include sm {
+          padding: 16px;
         }
       }
       &:not(:last-child) {
         margin-bottom: 24px;
       }
     }
+  }
+  @include lg {
+    padding: 40px 20px 80px;
+  }
+  @include sm {
+    padding: 40px 16px 40px;
   }
 }

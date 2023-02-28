@@ -16,6 +16,10 @@
         color: #000000;
         text-align: center;
         margin-bottom: 16px;
+        @include sm {
+          font-size: 16px;
+          line-height: 24px;
+        }
       }
       .desc {
         font-style: normal;
@@ -27,6 +31,17 @@
         color: #000000;
         max-width: 1110px;
         margin: 0 auto;
+        @include sm {
+          font-size: 14px;
+          line-height: 20px;
+          text-align: left;
+        }
+      }
+      @include lg {
+        margin-bottom: 32px;
+      }
+      @include sm {
+        margin-bottom: 24px;
       }
     }
     .welcome-body {
@@ -49,6 +64,15 @@
           letter-spacing: 0.42px;
           color: #000000;
           margin-bottom: 48px;
+          @include lg {
+            margin-bottom: 24px;
+          }
+          @include sm {
+            font-size: 16px;
+            line-height: 24px;
+            text-align: center;
+            margin-bottom: 16px;
+          }
         }
         .list {
           > li {
@@ -62,7 +86,14 @@
             &:not(:last-child) {
               margin-bottom: 16px;
             }
+            @include sm {
+              font-size: 14px;
+              line-height: 21px;
+            }
           }
+        }
+        @include lg {
+          max-width: unset;
         }
       }
       .welcom-descs {
@@ -77,8 +108,28 @@
           &:not(:last-child) {
             margin-bottom: 16px;
           }
+          @include sm {
+            font-size: 14px;
+            line-height: 20px;
+          }
+        }
+        @include lg {
+          grid-column: unset;
         }
       }
+      @include lg {
+        grid-template-columns: 1fr;
+        grid-gap: 32px;
+      }
+      // @include sm {
+      //   grid-gap: 32px;
+      // }
     }
+  }
+  @include lg {
+    padding: 40px 20px 80px;
+  }
+  @include sm {
+    padding: 20px 16px 40px;
   }
 }

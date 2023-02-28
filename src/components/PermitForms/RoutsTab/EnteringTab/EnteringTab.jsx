@@ -110,6 +110,8 @@ const EnteringTab = () => {
           />
           <span className='error-text'></span>
       </div>
+      <div className='fwy-action'>
+
           <span className='name'>  {
               !showFWY ? 
               'Add'
@@ -124,6 +126,7 @@ const EnteringTab = () => {
               <MinusIcon />
             }
             </button>
+      </div>
         </div>
       </div>
     </div>

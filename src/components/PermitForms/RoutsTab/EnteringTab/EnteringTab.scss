@@ -100,6 +100,16 @@
       > svg {
         margin-left: 8px;
       }
+      @include sm {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        line-height: 21px;
+        padding: 8px;
+        min-height: 40px;
+      }
     }
     .fwy-point {
       display: flex;

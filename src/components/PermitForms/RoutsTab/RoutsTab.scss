@@ -11,6 +11,12 @@
     letter-spacing: 0.42px;
     color: #000000;
     margin-bottom: 32px;
+    @include lg {
+      margin-bottom: 24px;
+    }
+    @include sm {
+      margin-bottom: 16px;
+    }
   }
   .content {
     display: grid;
@@ -32,12 +38,31 @@
         font-size: 24px;
         line-height: 24px;
         letter-spacing: 0.42px;
-        // text-transform: capitalize;
         color: #39979c;
+        @include lg {
+          font-size: 20px;
+          line-height: 24px;
+        }
+        @include md {
+          font-size: 16px;
+          line-height: 20px;
+        }
       }
       &:hover {
         border: 1px solid #39979c;
       }
+      @include lg {
+        padding: 120px 20px;
+      }
+      @include sm {
+        padding: 10px;
+        width: 240px;
+        height: 240px;
+      }
+    }
+    @include sm {
+      grid-template-columns: 1fr;
+      justify-items: center;
     }
   }
 }
