@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./TruckForm.scss";
 import Select from "react-select";
 import { getTaxRates } from "./taxRates/TaxRates";
 import { Controller, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setTruckData } from "../../../store/driver/action";
 import { useNavigate } from "react-router-dom";
 import { MinusIcon } from "../../icons/MinusIcon";
@@ -13,11 +13,13 @@ import { getCanadaProvinces } from "./canada/CanadaProvinces";
 
 const TruckForm = ({ setStep }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const showDatum = useSelector((state) => state.showData);
   const [isApportioned, setIsApportioned] = useState(true);
   const [selectedTaxRate, setSelectedTaxRate] = useState(null);
   const taxRates = getTaxRates();
   const [selectedTab, setSelectedTab] = useState("tabs");
-  const [secondDriver, setSecondDriver] = useState(false)
+  const [secondDriver, setSecondDriver] = useState(false);
   const apportionedWithOregon = [
     { value: true, label: "Yes" },
     { value: false, label: "No" },
@@ -66,6 +68,12 @@ const TruckForm = ({ setStep }) => {
     setStep(3);
   };
 
+  useEffect(() => {
+    if (!showDatum.show) {
+      navigate("/");
+    }
+  }, [showDatum]);
+
   return (
     <form onSubmit={handleSubmit(handleTruckData)} className="truck-form">
       <div className="name-of-driver">
@@ -81,32 +89,31 @@ const TruckForm = ({ setStep }) => {
           ) : null}
         </div>
         <div className="second-driver">
-        {
-          secondDriver ? 
-          <div className="form-input driver-name">
-            <label>Name of second driver:</label>
-            <input
-              {...register("name", {
-                required: "is required",
-              })}
-            />
-            {errors.name ? (
-              <span className="error-text">{errors.name.message}</span>
-            ) : null}
+          {secondDriver ? (
+            <div className="form-input driver-name">
+              <label>Name of second driver:</label>
+              <input
+                {...register("extra_driver", {
+                  required: "is required",
+                })}
+              />
+              {errors.extra_driver ? (
+                <span className="error-text">
+                  {errors.extra_driver.message}
+                </span>
+              ) : null}
+            </div>
+          ) : null}
+          <div
+            aria-hidden
+            className="add-btn"
+            onClick={() => setSecondDriver(!secondDriver)}
+          >
+            {secondDriver ? <MinusIcon /> : <PlusIcon />}
           </div>
-          : null
-        }
-        <div aria-hidden className='add-btn' onClick={()=> setSecondDriver(!secondDriver)}>
-          {
-            secondDriver ?
-             <MinusIcon /> 
-             :
-             <PlusIcon />
-          }
-        </div>
         </div>
       </div>
-      
+
       <p className="form-name">Truck Info</p>
       <div className="truck-info-form">
         <div className="small-inputs">
@@ -196,7 +203,10 @@ const TruckForm = ({ setStep }) => {
           ) : null}
         </div>
         <div className="form-select form-input">
-          <label>License plate type <span> (Is your truck apportioned with Oregon?)</span></label>
+          <label>
+            License plate type{" "}
+            <span> (Is your truck apportioned with Oregon?)</span>
+          </label>
           <div className="form-group">
             <Controller
               name="is_opportioned"
@@ -255,20 +265,24 @@ const TruckForm = ({ setStep }) => {
           ) : null}
         </div>
         {selectedTaxRate?.rates ? (
-        <div className="form-input">
-          <label>How many axles do you have?</label>
-          <input
-            {...register("axles", {
-              required: "is required",
-            })}
-          />
-          {errors.axles ? (
-            <span className="error-text">{errors.axles.message}</span>
+          <div className="form-input">
+            <label>How many axles do you have?</label>
+            <input
+              {...register("axles", {
+                required: "is required",
+              })}
+            />
+            {errors.axles ? (
+              <span className="error-text">{errors.axles.message}</span>
             ) : null}
-        </div>
-            ) : null}
-        
-        <div className={`form-select form-input ${selectedTaxRate?.rates ? 'new-position' : null} `}>
+          </div>
+        ) : null}
+
+        <div
+          className={`form-select form-input ${
+            selectedTaxRate?.rates ? "new-position" : null
+          } `}
+        >
           <label>Truck is purchased by the company or leased?</label>
           <Controller
             name="is_leased"
@@ -292,7 +306,9 @@ const TruckForm = ({ setStep }) => {
           ) : null}
         </div>
         <div className="form-input">
-          <label>What is your commodity <span>(What are you hauling)</span>?</label>
+          <label>
+            What is your commodity <span>(What are you hauling)</span>?
+          </label>
           <input
             {...register("commodity", {
               required: "is required",

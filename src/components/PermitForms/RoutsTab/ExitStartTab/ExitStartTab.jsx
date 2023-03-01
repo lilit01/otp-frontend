@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Select from "react-select";
 import { PlusIcon } from "../../../icons/PlusIcon";
 import { RemoveIcon } from "../../../icons/RemoveIcon";
@@ -17,10 +17,19 @@ const ExitStartTab = () => {
   const { truck_data } = useSelector((state) => state.driverData);
   const [showDistance, setShowDistance] = useState(false);
   const [calcualePrice, setCalcualePrice] = useState(false);
-  // const [inputText, setInputText] = useState("");
+  const inputRef1 = useRef(null);
+  const autoCompleteRef1 = useRef(null);
+  const inputRef2 = useRef(null);
+  const autoCompleteRef2 = useRef(null);
+  const [locations, setLocations] = useState([]);
   const [miles, setMiles] = useState(1000);
   const [amount, setAmount] = useState(0);
   const borderPoints = getBorderPoints();
+  const [dataForMap, setDataForMap] = useState({
+    entrance: "",
+    locations: [],
+  });
+
   const groupedOptions = borderPoints.map((group) => ({
     label: group.label,
     options: group.options.map((option) => ({
@@ -37,7 +46,7 @@ const ExitStartTab = () => {
   } = useForm();
 
   const handleRouteData = (data) => {
-    dispatch(setRouteData({ data, miles, amount }));
+    dispatch(setRouteData({ data, miles, amount, locations }));
   };
 
   const calculateAmount = () => {
@@ -57,24 +66,51 @@ const ExitStartTab = () => {
     } else {
       newAmount += 50;
     }
-    setAmount(newAmount);
+    setAmount(newAmount.toFixed(2));
   };
 
-  const findAddress = (e) => {
+  const checkDistance = () => {
+    setShowDistance(true);
     axios
       .get(
-        `https://nominatim.openstreetmap.org/search?q=${e.target.value}&format=json&addressdetails=1&countrycodes=us&state=Oregon`
+        `http://localhost:5000/getMap?origins=${
+          dataForMap.entrance.value
+        }&destinations=${dataForMap.locations.join("|")}`
       )
       .then((response) => {
-        const oregonAddresses = response.data.filter(
-          (address) => address.address.state === "Oregon"
-        );
-        console.log(oregonAddresses);
+        console.log(response);
+        const distance = Math.round(response.data.replace(/\D+/g, "") / 1.609);
+        setMiles(distance);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };
+
+  useEffect(() => {
+    autoCompleteRef1.current = new window.google.maps.places.Autocomplete(
+      inputRef1.current,
+      {}
+    );
+    autoCompleteRef1.current.addListener("place_changed", () => {
+      const place = autoCompleteRef1.current.getPlace();
+      setDataForMap({ ...dataForMap, entrance: place.formatted_address });
+    });
+
+    autoCompleteRef2.current = new window.google.maps.places.Autocomplete(
+      inputRef2.current,
+      {}
+    );
+    autoCompleteRef2.current.addListener("place_changed", () => {
+      const place = autoCompleteRef2.current.getPlace();
+      const newLocations = [...dataForMap.locations, place.formatted_address];
+      setLocations((prevValue) => [...prevValue, place.formatted_address]);
+      setDataForMap((prevState) => ({
+        ...prevState,
+        locations: newLocations,
+      }));
+    });
+  }, []);
 
   return (
     <form onSubmit={handleSubmit(handleRouteData)} className="entering-tab">
@@ -107,7 +143,7 @@ const ExitStartTab = () => {
           {...register("entrance_point", {
             required: "is required",
           })}
-          onChange={(e) => findAddress(e)}
+          ref={inputRef1}
           placeholder="CIty or zip code"
         />
         <span className="error-text"></span>
@@ -139,7 +175,7 @@ const ExitStartTab = () => {
             </label>
           </div>
           <div className="form-group">
-            <input {...register("location")} placeholder="CIty or zip code" />
+            <input ref={inputRef2} placeholder="CIty or zip code" />
             <button className="add-btn">
               <PlusIcon />
             </button>
@@ -180,7 +216,7 @@ const ExitStartTab = () => {
         <div className="distance-area">
           <button
             className="distance-btn"
-            onClick={() => setShowDistance(true)}
+            onClick={checkDistance}
           >
             Your distance <DistanceIcon />
           </button>
@@ -203,7 +239,14 @@ const ExitStartTab = () => {
                   classNamePrefix="select"
                   isSearchable={false}
                   placeholder={"Select One"}
-                  onChange={(value) => onChange(value)}
+                  onChange={(value) => {
+                    onChange(value);
+                    const exiting = [...dataForMap.locations, value];
+                    setDataForMap((prevState) => ({
+                      ...prevState,
+                      locations: exiting,
+                    }));
+                  }}
                   value={value}
                   options={groupedOptions}
                   formatGroupLabel={(data) => data.label}

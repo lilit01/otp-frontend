@@ -16,13 +16,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/permit" element={<PermitForms />} />
-<<<<<<< HEAD
-        {/* <Route path="/livechat" element={<LiveChat />} /> */}
-=======
         <Route path="/extended-permit" element={<ExtendedPermit />} />
         <Route path="/oversize-and-overweight-permit" element={<OversizeAndOverweight />} />
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
->>>>>>> ee8aa6bbeeb6d65f68fa10c4b8230175fc742c28
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <Footer />

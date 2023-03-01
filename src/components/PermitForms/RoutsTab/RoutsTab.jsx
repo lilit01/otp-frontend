@@ -46,7 +46,7 @@ const RoutsTab = ({setStep}) => {
       }
       <div className='actions'>
         <button className='secondary' onClick={goBack}>BACK</button>
-        <button className='primary' onClick={()=> setStep(4)}>NEXT</button>
+        <button className='primary' onClick={()=> setStep(4)} type="submit">NEXT</button>
       </div>
     </div>
   )

@@ -117,3 +117,8 @@
     }
   }
 }
+.pac-container {
+  ::after {
+    display: none;
+  }
+}

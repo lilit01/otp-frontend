@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./EnteringTab.scss";
 import Select from "react-select";
 import { PlusIcon } from "../../../icons/PlusIcon";
@@ -10,6 +10,7 @@ import { getBorderPoints } from "../borderPoints/BorderPoints";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { setRouteData } from "../../../../store/driver/action";
+import axios from "axios";
 
 const EnteringTab = () => {
   const dispatch = useDispatch();
@@ -17,9 +18,16 @@ const EnteringTab = () => {
   const [showFWY, setShowFWY] = useState(false);
   const [showDistance, setShowDistance] = useState(false);
   const [calcualePrice, setCalcualePrice] = useState(false);
-  const [miles, setMiles] = useState(1000);
+  const [miles, setMiles] = useState(0);
   const [amount, setAmount] = useState(0);
   const borderPoints = getBorderPoints();
+  const autoCompleteRef = useRef();
+  const inputRef = useRef();
+  const [locations, setLocations] = useState([]);
+  const [dataForMap, setDataForMap] = useState({
+    entrance: "",
+    locations: [],
+  });
   const groupedOptions = borderPoints.map((group) => ({
     label: group.label,
     options: group.options.map((option) => ({
@@ -36,27 +44,71 @@ const EnteringTab = () => {
   } = useForm();
 
   const handleRouteData = (data) => {
-    dispatch(setRouteData({ data, miles, amount }));
+    dispatch(setRouteData({ data, miles, amount, locations }));
   };
 
   const calculateAmount = () => {
     setCalcualePrice(!calcualePrice);
+    const weight = JSON.parse(truck_data.registered_weight);
     let newAmount;
-    if (truck_data.registered_weight.id > 27) {
-      truck_data.registered_weight.rates.find((element) => {
+    console.log("1", newAmount);
+    if (weight.id > 27) {
+      weight.rates.find((element) => {
         if (element.axles === +truck_data.axles) {
           newAmount = miles * element.decimal;
+          console.log("2", newAmount);
         }
       });
+      newAmount += 50;
+      console.log("3", newAmount);
     } else {
-      newAmount = miles * truck_data.registered_weight.decimal;
+      newAmount = miles * weight.decimal;
     }
     if (truck_data.is_opportioned) {
       console.log("total without 50", newAmount);
     } else {
       newAmount += 50;
+      console.log("4", newAmount);
     }
-    setAmount(newAmount);
+    newAmount += 69;
+    console.log("final", newAmount);
+
+    setAmount(newAmount.toFixed(2));
+  };
+
+  useEffect(() => {
+    autoCompleteRef.current = new window.google.maps.places.Autocomplete(
+      inputRef.current,
+      {}
+    );
+    autoCompleteRef.current.addListener("place_changed", async function () {
+      const place = await autoCompleteRef.current.getPlace();
+      const newLocations = [...dataForMap.locations, place.formatted_address];
+      setLocations((prevValue) => [...prevValue, place.formatted_address]);
+      setDataForMap((prevState) => ({
+        ...prevState,
+        locations: newLocations,
+      }));
+    });
+  }, []);
+
+  const checkDistance = () => {
+    setShowDistance(true);
+    console.log(dataForMap);
+    axios
+      .get(
+        `http://localhost:5000/getMap?origins=${
+          dataForMap.entrance.value
+        }&destinations=${dataForMap.locations.join("|")}`
+      )
+      .then((response) => {
+        console.log(response);
+        const distance = Math.round(response.data.replace(/\D+/g, "") / 1.609);
+        setMiles(distance);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
@@ -87,7 +139,7 @@ const EnteringTab = () => {
       <div className="form-select form-input">
         <label>Entrance point:</label>
         <Controller
-          name="exit_point"
+          name="entrance_point"
           control={control}
           defaultValue={null}
           render={({ field: { onChange, value } }) => (
@@ -96,7 +148,10 @@ const EnteringTab = () => {
               classNamePrefix="select"
               isSearchable={false}
               placeholder={"Select One"}
-              onChange={(value) => onChange(value)}
+              onChange={(value) => {
+                onChange(value);
+                setDataForMap({ ...dataForMap, entrance: value });
+              }}
               value={value}
               options={groupedOptions}
               formatGroupLabel={(data) => data.label}
@@ -132,7 +187,7 @@ const EnteringTab = () => {
             </label>
           </div>
           <div className="form-group">
-            <input placeholder="CIty or zip code" />
+            <input ref={inputRef} placeholder="CIty or zip code" />
             <button className="add-btn">
               <PlusIcon />
             </button>
@@ -156,10 +211,7 @@ const EnteringTab = () => {
       >
         {showDistance ? (
           <div className="colculate">
-            <button
-              className="calculate-btn primary"
-              onClick={calculateAmount}
-            >
+            <button className="calculate-btn primary" onClick={calculateAmount}>
               CALCULATE <CalculatorIcon />
             </button>
             {calcualePrice ? (
@@ -174,11 +226,8 @@ const EnteringTab = () => {
           </div>
         ) : null}
         <div className="distance-area">
-          <button
-            className="distance-btn"
-            onClick={() => setShowDistance(true)}
-          >
-            Your distance <DistanceIcon />{" "}
+          <button className="distance-btn" onClick={checkDistance}>
+            Your distance <DistanceIcon />
           </button>
           {showDistance ? (
             <div className="distance">
@@ -199,7 +248,14 @@ const EnteringTab = () => {
                   classNamePrefix="select"
                   isSearchable={false}
                   placeholder={"Select One"}
-                  onChange={(value) => onChange(value)}
+                  onChange={(value) => {
+                    onChange(value);
+                    const exiting = [...dataForMap.locations, value.value];
+                    setDataForMap((prevState) => ({
+                      ...prevState,
+                      locations: exiting,
+                    }));
+                  }}
                   value={value}
                   options={groupedOptions}
                   formatGroupLabel={(data) => data.label}
