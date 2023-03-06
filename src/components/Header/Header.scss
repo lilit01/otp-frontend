@@ -3,7 +3,7 @@
 
 .header {
   background: #fff;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.46);
+  border-bottom: 1px solid #d7e2e2;
   padding: 0 20px;
   .container {
     .main-header {
@@ -12,9 +12,14 @@
       align-items: center;
       width: 100%;
       padding: 24px 0;
-      border-bottom: 1px solid #d7e2e2;
       .website-logo {
         display: flex;
+        > svg {
+          @include sm {
+            width: 172.56px;
+            height: 24px;
+          }
+        }
       }
       .details {
         display: flex;
@@ -59,6 +64,185 @@
           cursor: pointer;
           border: 2px solid #39979c;
         }
+        @include lg {
+          display: none;
+        }
+      }
+      .mobile-menu {
+        display: none;
+        .mobile-icon {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          @include sm {
+            > svg {
+              width: 24px;
+              height: 24px;
+            }
+          }
+        }
+        .sidebar-root {
+          display: none;
+          @include lg {
+            display: block;
+          }
+          width: 0px;
+          &.sidbar-container {
+            position: absolute;
+            width: 100% !important;
+            height: 100vh;
+          }
+          .sidbar-overlay {
+            height: 100vh;
+            background: none !important;
+          }
+          .sidebar-content {
+            visibility: hidden;
+          }
+          .sidebar {
+            width: 376px;
+            .sidbar-content {
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              align-items: center;
+              height: 100%;
+              .hamburger-header {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                padding: 28px 24px;
+                border-bottom: 1px solid #d7e2e2;
+                .website-logo {
+                  display: none;
+                  @include sm {
+                    display: block;
+                  }
+                }
+                .hamburger-close {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                }
+                @include sm {
+                  padding: 16px;
+                  .empty {
+                    display: none;
+                  }
+                }
+              }
+              .nav-mobile {
+                .nav-item {
+                  padding: 24px 0;
+                  > a {
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 16px;
+                    line-height: 24px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    letter-spacing: 0.42px;
+                    text-transform: uppercase;
+                    color: #000000;
+                    text-decoration: none;
+                  }
+                  &.multiple {
+                    display: grid;
+                    align-items: center;
+                    grid-gap: 16px;
+                    > h3 {
+                      text-transform: uppercase;
+                      font-style: normal;
+                      font-weight: 600;
+                      font-size: 16px;
+                      line-height: 24px;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      letter-spacing: 0.42px;
+                      color: #000000;
+                      color: rgba(0, 0, 0, 0.5);
+                    }
+                    > a {
+                      font-style: normal;
+                      font-weight: 600;
+                      font-size: 14px;
+                      line-height: 24px;
+                      display: flex;
+                      align-items: center;
+                      letter-spacing: 0.42px;
+                      text-transform: uppercase;
+                      color: #000000;
+                      text-decoration: none;
+                    }
+                  }
+                  &:not(:last-child) {
+                    border-bottom: 1px dashed rgba(0, 0, 0, 0.6);
+                  }
+                }
+              }
+
+              .phone-number {
+                display: flex;
+                align-items: flex-end;
+                width: 100%;
+                flex-direction: column;
+                padding: 24px 28px;
+                .number {
+                  display: flex;
+                  > svg {
+                    margin-right: 20px;
+                  }
+                  > p {
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 23px;
+                    line-height: 24px;
+                    letter-spacing: 0.78px;
+                    color: #000000;
+                  }
+                }
+                .num {
+                  text-align: right;
+                  font-style: normal;
+                  font-weight: 400;
+                  font-size: 13px;
+                  line-height: 21px;
+                  letter-spacing: 0.42px;
+                  color: #717979;
+                  margin-top: 8px;
+                }
+              }
+            }
+            @include sm {
+              width: 100%;
+            }
+          }
+        }
+        .live-chat-btn {
+          background: none;
+          box-shadow: none;
+          display: flex;
+          align-items: center;
+          svg {
+            width: 24px;
+            height: 24px;
+            path {
+              stroke-width: 2px;
+              stroke: #39979c;
+              &:last-child {
+                stroke-width: 3px;
+              }
+            }
+          }
+        }
+        @include lg {
+          display: flex;
+        }
+      }
+      @include sm {
+        padding: 16px 0;
       }
     }
     .navbar {
@@ -123,6 +307,12 @@
           }
         }
       }
+      @include lg {
+        display: none;
+      }
     }
+  }
+  @include sm {
+    padding: 0 16px;
   }
 }

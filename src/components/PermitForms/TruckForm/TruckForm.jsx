@@ -76,7 +76,7 @@ const TruckForm = ({ setStep }) => {
 
   return (
     <form onSubmit={handleSubmit(handleTruckData)} className="truck-form">
-      <div className="name-of-driver">
+      <div className={`name-of-driver ${secondDriver ? 'grid' : ''}`}>
         <div className="form-input driver-name">
           <label>Name of driver:</label>
           <input

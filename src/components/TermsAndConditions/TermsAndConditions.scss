@@ -14,6 +14,11 @@
       text-transform: uppercase;
       color: #231f20;
       margin-bottom: 40px;
+      @include sm {
+        font-size: 16px;
+        line-height: 24px;
+        margin-bottom: 16px;
+      }
     }
     .desc {
       font-style: normal;
@@ -23,6 +28,11 @@
       letter-spacing: 0.78px;
       color: #000000;
       margin-bottom: 24px;
+      @include sm {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 400;
+      }
     }
     .accordion {
       border: none;
@@ -41,6 +51,14 @@
             text-transform: uppercase;
             color: #f6f9f9;
             background: #39979c;
+            .empty {
+              width: 32px;
+              height: 32px;
+              @include sm {
+                width: 24px;
+                height: 24px;
+              }
+            }
             &::before {
               display: none;
             }
@@ -48,6 +66,10 @@
               &:not(:first-child) {
                 width: 32px;
                 height: 32px;
+                @include sm {
+                  width: 24px;
+                  height: 24px;
+                }
               }
             }
             svg {
@@ -56,9 +78,19 @@
               path {
                 fill: white;
               }
+              @include sm {
+                width: 24px;
+                height: 24px;
+              }
             }
             .minus-icon {
               display: none;
+            }
+            @include sm {
+              padding: 16px;
+              font-size: 16px;
+              line-height: 24px;
+              align-items: center;
             }
           }
           .accordion__button[aria-disabled="true"] {
@@ -84,12 +116,32 @@
             &:not(:last-child) {
               margin-bottom: 16px;
             }
+            @include sm {
+              font-size: 14px;
+              line-height: 21px;
+              font-weight: 400;
+            }
+          }
+          @include sm {
+            padding: 16px;
           }
         }
         &:not(:last-child) {
           margin-bottom: 32px;
+          @include sm {
+            margin-bottom: 24px;
+          }
         }
       }
+      @include sm {
+        padding: 0 16px;
+      }
     }
+  }
+  @include lg {
+    padding: 40px 20px 80px;
+  }
+  @include lg {
+    padding: 40px 16px 40px;
   }
 }

@@ -18,6 +18,13 @@
           text-align: center;
           text-transform: uppercase;
           color: #f6f9f9;
+          @include sm {
+            font-size: 16px;
+            line-height: 24px;
+          }
+        }
+        @include sm {
+          padding: 16px;
         }
       }
       .card-content {
@@ -33,6 +40,11 @@
           text-transform: uppercase;
           color: #39979c;
           margin-bottom: 24px;
+          @include sm {
+            font-size: 16px;
+            line-height: 24px;
+            margin-bottom: 16px;
+          }
         }
         .descriptions {
           > p {
@@ -45,9 +57,23 @@
             &:not(:last-child) {
               margin-bottom: 16px;
             }
+            @include sm {
+              font-weight: 400;
+              font-size: 14px;
+              line-height: 20px;
+            }
           }
+        }
+        @include sm {
+          padding: 16px;
         }
       }
     }
+  }
+  @include lg {
+    padding: 40px 20px 80px;
+  }
+  @include lg {
+    padding: 40px 16px 120px;
   }
 }

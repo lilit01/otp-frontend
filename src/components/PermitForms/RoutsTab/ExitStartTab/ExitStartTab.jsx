@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setRouteData } from "../../../../store/driver/action";
 import { getBorderPoints } from "../borderPoints/BorderPoints";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import AutocompleteInput from "../autocompleteInput/AutocompleteInput";
 
 const ExitStartTab = () => {
   const dispatch = useDispatch();
@@ -25,6 +27,34 @@ const ExitStartTab = () => {
   const [miles, setMiles] = useState(1000);
   const [amount, setAmount] = useState(0);
   const borderPoints = getBorderPoints();
+  const [inputs, setInputs] = useState([]);
+
+  const handleAddInput = () => {
+    const newInput = {
+      id: uuidv4(),
+      value: "",
+    };
+    setInputs([...inputs, newInput]);
+  };
+
+  const handleRemoveInput = (id) => {
+    const newInputs = inputs.filter((input) => input.id !== id);
+    setInputs(newInputs);
+  };
+
+  const handlePlaceSelected = (place, id) => {
+    const newInputs = inputs.map((input) => {
+      if (input.id === id) {
+        return {
+          ...input,
+          value: place.formatted_address,
+        };
+      }
+      return input;
+    });
+    setInputs(newInputs);
+  };
+
   const [dataForMap, setDataForMap] = useState({
     entrance: "",
     locations: [],
@@ -70,22 +100,35 @@ const ExitStartTab = () => {
   };
 
   const checkDistance = () => {
+    const inp = inputs.map((input) => input.value);
     setShowDistance(true);
-    axios
-      .get(
-        `http://localhost:5000/getMap?origins=${
-          dataForMap.entrance.value
-        }&destinations=${dataForMap.locations.join("|")}`
-      )
-      .then((response) => {
-        console.log(response);
-        const distance = Math.round(response.data.replace(/\D+/g, "") / 1.609);
-        setMiles(distance);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    setDataForMap((prevState) => ({
+      ...prevState,
+      locations: locations.concat(inp),
+    }));
   };
+
+  useEffect(() => {
+    if (dataForMap.locations.length !== 0) {
+      console.log(dataForMap.locations.join("|"));
+      axios
+        .get(
+          `http://localhost:5000/getMap?origins=${
+            dataForMap.entrance.value
+          }&destinations=${dataForMap.locations.join("|")}`
+        )
+        .then((response) => {
+          console.log(response);
+          const distance = Math.round(
+            response.data.replace(/\D+/g, "") / 1.609
+          );
+          setMiles(distance);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [dataForMap]);
 
   useEffect(() => {
     autoCompleteRef1.current = new window.google.maps.places.Autocomplete(
@@ -148,7 +191,7 @@ const ExitStartTab = () => {
         />
         <span className="error-text"></span>
       </div>
-      <div className="steps-area">
+      {/* <div className="steps-area">
         <h3 className="title">Stops</h3>
         <div className="form-input">
           <label>1 Location in Oregon:</label>
@@ -185,6 +228,92 @@ const ExitStartTab = () => {
           </div>
           <span className="error-text"></span>
         </div>
+      </div> */}
+      <div className="steps-area">
+        <h3 className="title">Stops</h3>
+        <div className="form-input">
+          <label>1 Location in Oregon:</label>
+          <div className="trip-radios">
+            <label>
+              <input
+                // {...register("trip_method", {
+                //   required: "is required",
+                // })}
+                type={"radio"}
+                value="delivery"
+              />
+              <span>Delivery</span>
+            </label>
+            <label>
+              <input
+                // {...register("trip_method", {
+                //   required: "is required",
+                // })}
+                type={"radio"}
+                value="pickUp"
+              />
+              <span>Pick Up</span>
+            </label>
+          </div>
+          <div className="form-group" key={0}>
+            <input ref={inputRef2} type="text" placeholder="City or ZIP code" />
+            <button className="add-btn" onClick={handleAddInput}>
+              <PlusIcon />
+            </button>
+            <button className="add-btn" onClick={() => handleRemoveInput(0)}>
+              <RemoveIcon />
+            </button>
+          </div>
+          <span className="error-text"></span>
+        </div>
+        {inputs.map((input) => (
+          <div className="form-input" key={input.id}>
+            <label>1 Location in Oregon:</label>
+            <div className="trip-radios">
+              <label>
+                <input
+                  // {...register("trip_method", {
+                  //   required: "is required",
+                  // })}
+                  type={"radio"}
+                  value="delivery"
+                />
+                <span>Delivery</span>
+              </label>
+              <label>
+                <input
+                  // {...register("trip_method", {
+                  //   required: "is required",
+                  // })}
+                  type={"radio"}
+                  value="pickUp"
+                />
+                <span>Pick Up</span>
+              </label>
+            </div>
+            <span className="error-text"></span>
+            <div className="form-group">
+              <AutocompleteInput
+                id={input.id}
+                value={input.value}
+                onPlaceSelected={(place) =>
+                  handlePlaceSelected(place, input.id)
+                }
+              />
+              <button className="add-btn" onClick={handleAddInput}>
+                <PlusIcon />
+              </button>
+              <button
+                className="add-btn"
+                onClick={() => {
+                  handleRemoveInput(input.id);
+                }}
+              >
+                <RemoveIcon />
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
       <div
         className={`fwy-and-distance  ${
@@ -214,10 +343,7 @@ const ExitStartTab = () => {
           </div>
         ) : null}
         <div className="distance-area">
-          <button
-            className="distance-btn"
-            onClick={checkDistance}
-          >
+          <button className="distance-btn" onClick={checkDistance}>
             Your distance <DistanceIcon />
           </button>
           {showDistance ? (

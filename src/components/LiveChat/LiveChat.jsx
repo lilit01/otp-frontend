@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { MessageIcon } from "../icons/MessageIcon";
-import "./LiveChat.scss";
-import { RemoveIcon } from "../icons/RemoveIcon.jsx";
-import { FilesIcon } from "../icons/FilesIcon";
-import { SendIcon } from "../icons/SendIcon";
+import React , { useEffect, useState } from 'react'
+import { MessageIcon } from '../icons/MessageIcon'
+import './LiveChat.scss';
+import {RemoveIcon} from '../icons/RemoveIcon.jsx'
+import { FilesIcon } from '../icons/FilesIcon';
+import { SendIcon } from '../icons/SendIcon';
+import { useWindowSize } from '../../hooks/useWindowSize';
 import io from "socket.io-client";
 import axios from "axios";
 const socket = io.connect("http://localhost:5000");
 
-const LiveChat = ({ openChat, setOpenChat }) => {
-  // let datasjj = localStorage.getItem("usdot");
+const LiveChat = ({openChat, setOpenChat}) => {
+  const width = useWindowSize();
   const [message, setMessage] = useState("");
   const [usdot, setUsdot] = useState(localStorage.getItem("usdot"));
   const [messageReceived, setMessageReceived] = useState([]);
@@ -56,7 +57,7 @@ const LiveChat = ({ openChat, setOpenChat }) => {
   }, [usdot]);
 
   return (
-    <div className="chat-section">
+    <div className={`chat-section ${width <= 992 ? 'mobile' : null}`}>
       {!openChat && (
         <button className="live-chat-btn" onClick={() => setOpenChat(true)}>
           <MessageIcon />

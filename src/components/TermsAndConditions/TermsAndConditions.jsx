@@ -23,7 +23,8 @@ const TermsAndConditions = () => {
               <AccordionItem>
                   <AccordionItemHeading>
                       <AccordionItemButton>
-                        <div />
+                        <div className="empty" />
+                        
                         Services
                         <div className='plus-icon'>
                           <PlusIcon />
@@ -45,7 +46,8 @@ const TermsAndConditions = () => {
               <AccordionItem>
                   <AccordionItemHeading>
                       <AccordionItemButton>
-                      <div />
+                        <div className="empty" />
+                      
                       Payments
                         <div className='plus-icon'>
                           <PlusIcon />
@@ -70,7 +72,8 @@ const TermsAndConditions = () => {
               <AccordionItem>
                   <AccordionItemHeading>
                       <AccordionItemButton>
-                      <div />
+                        <div className="empty" />
+                      
                       Pricing Errors
                         <div className='plus-icon'>
                           <PlusIcon />
@@ -89,7 +92,8 @@ const TermsAndConditions = () => {
               <AccordionItem>
                   <AccordionItemHeading>
                       <AccordionItemButton>
-                      <div />
+                        <div className="empty" />
+                      
                       Disclaimer
                         <div className='plus-icon'>
                           <PlusIcon />
@@ -108,7 +112,8 @@ const TermsAndConditions = () => {
               <AccordionItem>
                   <AccordionItemHeading>
                       <AccordionItemButton>
-                      <div />
+                        <div className="empty" />
+                      
                       Financial Information
                         <div className='plus-icon'>
                           <PlusIcon />
@@ -127,7 +132,8 @@ const TermsAndConditions = () => {
               <AccordionItem>
                   <AccordionItemHeading>
                       <AccordionItemButton>
-                      <div />
+                        <div className="empty" />
+                      
                       Website Security
                         <div className='plus-icon'>
                           <PlusIcon />

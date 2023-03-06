@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AcceptIcon } from "../../icons/AcceptIcon";
 import { CalendarIcon } from "../../icons/CalendarIcon";
 import { LockIcon } from "../../icons/LockIcon";
@@ -9,9 +9,11 @@ import { RemoveIcon } from "../../icons/RemoveIcon";
 import "./PaymentForm.scss";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { addCard } from "../../../store/payment/action";
 
 const PaymentForm = ({ setStep }) => {
   const [selectedTab, setSelectedTab] = useState("tabs");
+  const dispatch = useDispatch();
   const { route_data, driver_data } = useSelector((state) => state.driverData);
   const [dateString, setDateString] = useState("");
   const [cardDetails, setCardDetails] = useState({
@@ -34,19 +36,20 @@ const PaymentForm = ({ setStep }) => {
 
   const handlePayment = async () => {
     console.log(cardDetails);
-    await axios
-      .post("http://localhost:5000/pay", cardDetails)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data.error_type) {
-          alert(res.data.message);
-        } else {
-          setStep(5);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    setStep(5);
+    dispatch(addCard(cardDetails));
+    // await axios
+    //   .post("http://localhost:5000/pay", cardDetails)
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     if (res.data.error_type) {
+    //       alert(res.data.message);
+    //     } else {
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   return (
@@ -71,7 +74,6 @@ const PaymentForm = ({ setStep }) => {
             cardDetails.card_number.length !== 16 ? (
             <RemoveIcon />
           ) : null}
-          {/* <RemoveIcon /> */}
         </div>
         <div className="payment-input-area">
           <CalendarIcon />
@@ -94,12 +96,6 @@ const PaymentForm = ({ setStep }) => {
             dateFormat="MM/yy"
             showMonthYearPicker
           />
-          {/* <input
-            placeholder="MM/YY"
-            onChange={(e) =>
-              setCardDetails({ ...cardDetails, date: e.target.value })
-            }
-          /> */}
           {cardDetails.date !== "" ? (
             <div className="accepted-icon">
               <AcceptIcon />

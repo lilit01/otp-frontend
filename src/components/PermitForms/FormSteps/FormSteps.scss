@@ -27,6 +27,13 @@
       letter-spacing: 0.42px;
       text-transform: capitalize;
       margin-left: 12px;
+      @include lg {
+        font-size: 14px;
+        line-height: 20px;
+      }
+      @include md {
+        display: none;
+      }
     }
     &.current {
       background-color: #fff;
@@ -42,5 +49,22 @@
     &.disabled {
       opacity: 0.5;
     }
+    @include lg {
+      padding: 8px;
+    }
+    @include md {
+      &:not(:last-child) {
+        margin-right: 16px;
+      }
+    }
+    @include xs {
+      &:not(:last-child) {
+        margin-right: 8px;
+      }
+    }
+  }
+  @include md {
+    justify-content: center;
+    margin-bottom: 16px;
   }
 }

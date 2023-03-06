@@ -5,7 +5,6 @@ import Footer from './components/Footer/Footer';
 import Header from "./components/Header/Header";
 import Homepage from "./components/Homepage/Homepage";
 import OversizeAndOverweight from "./components/OversizeAndOverweight/OversizeAndOverweight";
-// import LiveChat from "./components/LiveChat/LiveChat";
 import PermitForms from "./components/PermitForms/PermitForms";
 import TermsAndConditions from "./components/TermsAndConditions/TermsAndConditions";
 

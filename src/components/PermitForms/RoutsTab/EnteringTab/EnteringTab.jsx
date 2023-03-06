@@ -11,6 +11,8 @@ import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { setRouteData } from "../../../../store/driver/action";
 import axios from "axios";
+import AutocompleteInput from "../autocompleteInput/AutocompleteInput";
+import { v4 as uuidv4 } from "uuid";
 
 const EnteringTab = () => {
   const dispatch = useDispatch();
@@ -24,10 +26,39 @@ const EnteringTab = () => {
   const autoCompleteRef = useRef();
   const inputRef = useRef();
   const [locations, setLocations] = useState([]);
+  const [inputs, setInputs] = useState([]);
+
+  const handleAddInput = () => {
+    const newInput = {
+      id: uuidv4(),
+      value: "",
+    };
+    setInputs([...inputs, newInput]);
+  };
+
+  const handleRemoveInput = (id) => {
+    const newInputs = inputs.filter((input) => input.id !== id);
+    setInputs(newInputs);
+  };
+
+  const handlePlaceSelected = (place, id) => {
+    const newInputs = inputs.map((input) => {
+      if (input.id === id) {
+        return {
+          ...input,
+          value: place.formatted_address,
+        };
+      }
+      return input;
+    });
+    setInputs(newInputs);
+  };
+
   const [dataForMap, setDataForMap] = useState({
     entrance: "",
     locations: [],
   });
+
   const groupedOptions = borderPoints.map((group) => ({
     label: group.label,
     options: group.options.map((option) => ({
@@ -82,34 +113,40 @@ const EnteringTab = () => {
       {}
     );
     autoCompleteRef.current.addListener("place_changed", async function () {
+      console.log("11111", autoCompleteRef.current.getPlace());
       const place = await autoCompleteRef.current.getPlace();
-      const newLocations = [...dataForMap.locations, place.formatted_address];
       setLocations((prevValue) => [...prevValue, place.formatted_address]);
-      setDataForMap((prevState) => ({
-        ...prevState,
-        locations: newLocations,
-      }));
     });
   }, []);
 
   const checkDistance = () => {
+    const inp = inputs.map((input) => input.value);
     setShowDistance(true);
-    console.log(dataForMap);
-    axios
-      .get(
-        `http://localhost:5000/getMap?origins=${
-          dataForMap.entrance.value
-        }&destinations=${dataForMap.locations.join("|")}`
-      )
-      .then((response) => {
-        console.log(response);
-        const distance = Math.round(response.data.replace(/\D+/g, "") / 1.609);
-        setMiles(distance);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    setDataForMap((prevState) => ({
+      ...prevState,
+      locations: locations.concat(inp),
+    }));
   };
+
+  useEffect(() => {
+    if (dataForMap.locations.length !== 0) {
+      console.log(dataForMap.locations.join("|"));
+      axios
+        .get(
+          `http://localhost:5000/getMap?origins=${
+            dataForMap.entrance.value
+          }&destinations=${dataForMap.locations.join("|")}`
+        )
+        .then((response) => {
+          console.log(response);
+          const distance = Math.round(response.data.replace(/\D+/g, "") / 1.609);
+          setMiles(distance);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [dataForMap]);
 
   return (
     <form onSubmit={handleSubmit(handleRouteData)} className="entering-tab">
@@ -167,9 +204,9 @@ const EnteringTab = () => {
           <div className="trip-radios">
             <label>
               <input
-                {...register("trip_method", {
-                  required: "is required",
-                })}
+                // {...register("trip_method", {
+                //   required: "is required",
+                // })}
                 type={"radio"}
                 value="delivery"
               />
@@ -177,18 +214,18 @@ const EnteringTab = () => {
             </label>
             <label>
               <input
-                {...register("trip_method", {
-                  required: "is required",
-                })}
+                // {...register("trip_method", {
+                //   required: "is required",
+                // })}
                 type={"radio"}
                 value="pickUp"
               />
               <span>Pick Up</span>
             </label>
           </div>
-          <div className="form-group">
-            <input ref={inputRef} placeholder="CIty or zip code" />
-            <button className="add-btn">
+          <div className="form-group" key={0}>
+            <input ref={inputRef} type="text" placeholder="City or ZIP code" />
+            <button className="add-btn" onClick={handleAddInput}>
               <PlusIcon />
             </button>
             <button className="add-btn">
@@ -197,6 +234,54 @@ const EnteringTab = () => {
           </div>
           <span className="error-text"></span>
         </div>
+        {inputs.map((input) => (
+          <div className="form-input" key={input.id}>
+            <label>1 Location in Oregon:</label>
+            <div className="trip-radios">
+              <label>
+                <input
+                  // {...register("trip_method", {
+                  //   required: "is required",
+                  // })}
+                  type={"radio"}
+                  value="delivery"
+                />
+                <span>Delivery</span>
+              </label>
+              <label>
+                <input
+                  // {...register("trip_method", {
+                  //   required: "is required",
+                  // })}
+                  type={"radio"}
+                  value="pickUp"
+                />
+                <span>Pick Up</span>
+              </label>
+            </div>
+            <span className="error-text"></span>
+            <div className="form-group">
+              <AutocompleteInput
+                id={input.id}
+                value={input.value}
+                onPlaceSelected={(place) =>
+                  handlePlaceSelected(place, input.id)
+                }
+              />
+              <button className="add-btn" onClick={handleAddInput}>
+                <PlusIcon />
+              </button>
+              <button
+                className="add-btn"
+                onClick={() => {
+                  handleRemoveInput(input.id);
+                }}
+              >
+                <RemoveIcon />
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
       <div
         className={`fwy-and-distance  ${

@@ -1,11 +1,10 @@
-import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setDriverData } from "../../store/driver/action";
 import { setShow } from "../../store/show/action";
-import LiveChat from "../livechat/LiveChat";
+import LiveChat from "../Livechat/LiveChat";
 import "./Homepage.scss";
 import WelcomeSection from "./WelcomeSection/WelcomeSection";
 
@@ -33,17 +32,6 @@ const Homepage = () => {
     const yyyy = today.getFullYear();
     return yyyy + "-" + mm + "-" + dd;
   };
-
-  useEffect(() => {
-    // axios
-    //   .get(`http://localhost:5000/getMap`)
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
-  }, []);
 
   return (
     <div className="homepage-container">
@@ -137,6 +125,7 @@ const Homepage = () => {
                 SEND
               </button>
             </div>
+            <div className="form-background" />
           </form>
         </div>
       </div>
