@@ -5,7 +5,7 @@ import { HamburgerCloseIcon } from '../icons/HamburgerCloseIcon';
 import { HamburgerIcon } from '../icons/HamburgerIcon';
 import { PhoneIcon } from '../icons/PhoneIcon'
 import { WebsiteLogo } from '../icons/WebsiteLogo'
-import LiveChat from '../LiveChat/LiveChat';
+import LiveChat from '../Livechat/LiveChat';
 import './Header.scss'
 
 const Header = () => {
@@ -50,7 +50,7 @@ const Header = () => {
               </div>
               <p className='num'>24/7 Hotline</p>
             </div>
-            <button className='live-btn' onClick={() => navigate("/livechat")}>LIVE CHAT</button>
+            <button className='live-btn'>LIVE CHAT</button>
           </div>
           <div className="mobile-menu">
             {

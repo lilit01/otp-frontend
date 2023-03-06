@@ -21,6 +21,7 @@ export const driverState = {
     commodity: "",
     is_leased: "",
     leasing_company: "",
+    usdot: "",
   },
   route_data: {
     entrance_point: "",
@@ -29,6 +30,8 @@ export const driverState = {
     miles: "",
     total_amount: "",
     trip_type: "",
+    trip_method:"",
     type: "",
+    usdot: "",
   },
 };
